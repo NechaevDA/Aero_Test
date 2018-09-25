@@ -8,6 +8,8 @@ using Aero_Test.ControlVM;
 using Aero_Test.Model;
 using System.Windows;
 using System.IO;
+using Prism.Commands;
+using Microsoft.Win32;
 
 namespace Aero_Test.ViewModel
 {
@@ -15,7 +17,7 @@ namespace Aero_Test.ViewModel
     {
         public MainWindowVM()
         {
-            
+            _loadFiles = new DelegateCommand(loadFiles);
         }
 
         /// <summary>
@@ -120,11 +122,7 @@ namespace Aero_Test.ViewModel
                 {
                     //Сюда можно было бы поместить подсчет статистики
                     GraphControl.SetValues(DepartureInfo.Count24h, ArrivalInfo.Count24h); //устанавливаем значения графиков
-                }
-            } catch (KeyNotFoundException E)
-            {
-                MessageBox.Show("Нет связи по типу самолета. (Отсутствует в словаре) Работа прекращена");
-                TimeControl.Timer.Stop();
+                }            
             } catch (Exception E)
             {
                 MessageBox.Show(E.Message + "\n" + E.StackTrace);
@@ -132,15 +130,49 @@ namespace Aero_Test.ViewModel
             }
         }
 
+        private DelegateCommand _loadFiles;
+        public DelegateCommand LoadFiles
+        {
+            get { return _loadFiles; }
+        }
+
+        /// <summary>
+        /// Загрузка файлов через диалоговые окна
+        /// </summary>
+        private void loadFiles()
+        {
+            OpenFileDialog OFD = new OpenFileDialog();
+            string planesPath, flightsPath;
+            MessageBox.Show("Выберите файл с типами самолетов");
+            if (OFD.ShowDialog() == true)
+            {
+                planesPath = OFD.FileName;
+                MessageBox.Show("Выберите файл с расписанием");
+                if (OFD.ShowDialog() == true)
+                {
+                    flightsPath = OFD.FileName;
+                    LoadInfo(planesPath, flightsPath);
+                }
+                else return;
+            }
+            else return;
+        }
         /// <summary>
         /// Загрузка информации при старте
         /// </summary>
         public void LoadInfo(string planesPath, string flightsPath)
         {
             try
-            {
+            {                
                 TimeControl = new TimeControlVM();
                 TimeControl.Timer.Tick += Update;
+
+                if (!DataLoader.LoadPlanes(ref CommonData.PlanesCapacity, planesPath)) //Загружаем список типов самолетов
+                {
+                    MessageBox.Show("Файл с типами самолетов не найден. Работа программы остановлена");
+                    TimeControl.Timer.Stop();
+                }
+
                 if (File.Exists(flightsPath)) //Загружаем список полетов
                 {
                     AllFlights = DataLoader.LoadFlightsList(ref FlightQueue, flightsPath);
@@ -162,15 +194,16 @@ namespace Aero_Test.ViewModel
                     TimeControl.Timer.Stop();
                 }
 
-                if (!DataLoader.LoadPlanes(ref CommonData.PlanesCapacity, planesPath)) //Загружаем список типов самолетов
-                {
-                    MessageBox.Show("Файл с типами самолетов не найден. Работа программы остановлена");
-                    TimeControl.Timer.Stop();
-                }
+                
 
                 ArrivalInfo = new SideInfoVM("Статистика: прилеты");
                 DepartureInfo = new SideInfoVM("Статистика: вылеты");
                 GraphControl = new GraphControlVM();
+            }
+            catch (KeyNotFoundException E)
+            {
+                MessageBox.Show("Нет связи по типу самолета. (Отсутствует в словаре) Работа прекращена");
+                TimeControl.Timer.Stop();
             }
             catch (FileNotFoundException E)
             {

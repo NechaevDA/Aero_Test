@@ -55,7 +55,7 @@ namespace Aero_Test.Model
                     R.Next(0, CommonData.PlanesCapacity[temp[0]]),
                     CommonData.PlanesCapacity[temp[0]]);
                 return res;
-
+            
             } catch (Exception E)
             {
                 throw E;

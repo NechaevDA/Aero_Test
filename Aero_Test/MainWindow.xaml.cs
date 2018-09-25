@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -27,7 +28,10 @@ namespace Aero_Test
             InitializeComponent();
             MainWindowVM VM = new MainWindowVM();
             this.DataContext = VM;
-            VM.LoadInfo("Planes.txt", "Flights.txt");
+            if (File.Exists("Planes.txt") && File.Exists("Flights.txt"))
+                VM.LoadInfo("Planes.txt", "Flights.txt");
+            else
+                MessageBox.Show("Файлы списков самолетов/расписания не найдены. Загрузите вручную");
         }
     }
 }
