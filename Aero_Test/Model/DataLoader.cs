@@ -47,6 +47,7 @@ namespace Aero_Test.Model
                 string tmpPlane = temp[0];
                 string tmpFlightType = temp[1];
                 
+                //Тут еще может быть проверка данных на непустоту.
                 FlightRecord res = new FlightRecord(
                     temp[0],
                     new DateTime(1, 1, 1, int.Parse(temp[2].Split(':')[0]), int.Parse(temp[2].Split(':')[1]), 0),
