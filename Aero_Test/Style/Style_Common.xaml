@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Aero_Test.Style">
+
+    <Color x:Key="ThemeYellowLightColor">#dce052</Color>
+    <Color x:Key="ThemeYellowMiddleColor">#dfe619</Color>
+    <Color x:Key="ThemeYellowDarkColor">#bcc20a</Color>
+    <Color x:Key="ThemeYellowTwoXLightColor">#e9ebad</Color>
+
+    <Color x:Key="ThemeGrayLightColor">#DDDDDD</Color>
+    <Color x:Key="ThemeGrayMiddleColor">#999999</Color>
+    <Color x:Key="ThemeGrayDarkColor">#777777</Color>
+    
+    <LinearGradientBrush x:Key="ThemeYellowGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource ThemeYellowLightColor}" Offset="0"/>
+        <GradientStop Color="{StaticResource ThemeYellowDarkColor}" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ThemeTwoXLightYellowGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource ThemeYellowTwoXLightColor}" Offset="0"/>
+        <GradientStop Color="{StaticResource ThemeYellowLightColor}" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ThemeYellowLightGradient" StartPoint="0,0" EndPoint="0,1" Opacity="0.3">
+        <GradientStop Color="{StaticResource ThemeYellowLightColor}" Offset="0"/>
+        <GradientStop Color="{StaticResource ThemeYellowDarkColor}" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ThemeGrayDarkGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource ThemeGrayMiddleColor}" Offset="0"/>
+        <GradientStop Color="{StaticResource ThemeGrayDarkColor}" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ThemeGrayLightGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource ThemeGrayLightColor}" Offset="0"/>
+        <GradientStop Color="{StaticResource ThemeGrayMiddleColor}" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ThemeMiddleYellowBrush" Color="{StaticResource ThemeYellowMiddleColor}"/>
+    <SolidColorBrush x:Key="ThemeLightGrayBrush" Color="{StaticResource ThemeGrayLightColor}"/>
+    <SolidColorBrush x:Key="ThemeDarkGrayBrush" Color="{StaticResource ThemeGrayDarkColor}"/>
+
+    <FontFamily x:Key="MainFont">Verdana</FontFamily>
+
+    <LinearGradientBrush x:Key="RedGradient" StartPoint="0,0" EndPoint="0,1" Opacity="0.5">
+        <GradientStop Color="#C00" Offset="0"/>
+        <GradientStop Color="#500" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GreenGradient" StartPoint="0,0" EndPoint="0,1" Opacity="0.5">
+        <GradientStop Color="#0C0" Offset="0"/>
+        <GradientStop Color="#050" Offset="1"/>
+    </LinearGradientBrush>
+</ResourceDictionary>

@@ -1,0 +1,33 @@
+﻿<Window x:Class="Aero_Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aero_Test"
+        xmlns:control="clr-namespace:Aero_Test.Control"
+        xmlns:vm="clr-namespace:Aero_Test.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="480" Width="640" MinHeight="480" MinWidth="640">
+    <Window.DataContext>
+        <vm:MainWindowVM/>
+    </Window.DataContext>    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <control:FlightRecordControl x:Name="FlightInfo" Margin="10" DataContext="{Binding FlightInfo}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <control:TimeControl Margin="5" DataContext="{Binding TimeControl}" Grid.Row="0" Grid.Column="2"/>
+        <control:SideInfo DataContext="{Binding ArrivalInfo}" Grid.Row="1" Grid.Column="0"/>
+        <control:SideInfo DataContext="{Binding DepartureInfo}" Grid.Row="1" Grid.Column="2"/>
+        <control:GraphControl DataContext="{Binding GraphControl}" Grid.Row="2" Grid.ColumnSpan="3"/>
+
+        <Canvas Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource ThemeGrayDarkGradient}" Panel.ZIndex="-1"/>
+    </Grid>
+</Window>

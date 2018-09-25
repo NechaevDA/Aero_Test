@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="Aero_Test.Control.GraphControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aero_Test.Control"
+             xmlns:GR="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+             xmlns:vm="clr-namespace:Aero_Test.ControlVM"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <vm:GraphControlVM/>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style x:Key="{x:Type Rectangle}" TargetType="{x:Type Rectangle}">
+            <Setter Property="Fill" Value="{DynamicResource ThemeYellowGradient}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Animate}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource RectHeightAnimation}"/>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2.7*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.ColumnSpan="3" Grid.Row="0">
+            <TextBlock Text="Статистика прилетов/вылетов за 24ч" VerticalAlignment="Center" TextAlignment="Center"/>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0">
+            <TextBlock Text="Вылеты:" Padding="0 0 5 0" VerticalAlignment="Center" TextAlignment="Right"/>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0">
+            <TextBlock Text="Прилеты:" Padding="0 0 5 0" VerticalAlignment="Center" TextAlignment="Right"/>
+        </Border>
+
+        <Viewbox Grid.Column="1" Grid.Row="1" Stretch="Fill">
+            <Canvas Height="50" Width="120">
+                <Rectangle Name="DepartureRect" Height="30" Canvas.Left="2" Canvas.Top="10" Width="{Binding DeparturePercentage}">
+     
+                </Rectangle>
+            </Canvas>
+        </Viewbox>
+        <Viewbox Grid.Column="1" Grid.Row="2" Stretch="Fill">
+            <Canvas Height="50" Width="120">
+                <Rectangle Height="30" Canvas.Left="2" Canvas.Top="10" Width="{Binding ArrivalPercentage}"/>
+            </Canvas>
+        </Viewbox>
+
+        <Border Grid.Row="1" Grid.Column="2">
+            <TextBlock Text="{Binding DepartureSummary}" Padding="5 0 0 0" VerticalAlignment="Center" TextAlignment="Left"/>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="2">
+            <TextBlock Text="{Binding ArrivalSummary}" Padding="5 0 0 0" VerticalAlignment="Center" TextAlignment="Left"/>
+        </Border>
+        <Canvas Panel.ZIndex="-2" Background="{StaticResource ThemeGrayDarkGradient}" Grid.ColumnSpan="3" Grid.RowSpan="4"/>
+        <Canvas Panel.ZIndex="-1" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource ThemeGrayLightGradient}"/>
+    </Grid>
+</UserControl>
